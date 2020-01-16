@@ -6,10 +6,13 @@
         <div id="left">
           <p><span></span> {{beer.tagline}}</p>
           <p><span>Description</span>: {{beer.description}}</p>
+          <!-- <p><span>Ingredients:</span></p>
+          <p><span>Malt:</span></p>
           <ul v-for="ingredient in beer.ingredients">
-            <li>{{ingredient.name}}</li>
-          </ul>
-          <p><span>Food Pairing</span>: {{beer.food_pairing}}</p>
+            <li>{{ingredient.malt}}</li>
+          </ul> -->
+
+          <p><span>Food Pairing</span>: {{beer.food_pairing[0]}}</p>
           <p><span>Brewer's Tips</span>: {{beer.brewers_tips}}</p>
         </div>
 
@@ -40,6 +43,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 
 #detailWrapper {
   box-sizing: border-box;
