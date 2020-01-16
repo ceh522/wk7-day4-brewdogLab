@@ -6,12 +6,6 @@
         <div id="left">
           <p><span></span> {{beer.tagline}}</p>
           <p><span>Description</span>: {{beer.description}}</p>
-          <!-- <p><span>Ingredients:</span></p>
-          <p><span>Malt:</span></p>
-          <ul v-for="ingredient in beer.ingredients">
-            <li>{{ingredient.malt}}</li>
-          </ul> -->
-
           <p><span>Food Pairing</span>: {{beer.food_pairing[0]}}</p>
           <p><span>Brewer's Tips</span>: {{beer.brewers_tips}}</p>
         </div>
@@ -19,6 +13,9 @@
         <div id="right">
           <img :src="beer.image_url" :alt="beer.name">
         </div>
+
+        <button v-on:click="addToFavourites">Add Beer to Favourites</button>
+
       </div>
     </div>
   </div>
@@ -78,5 +75,6 @@ h2 {
 p span {
   font-weight: bold;
 }
+
 
 </style>
