@@ -1,31 +1,53 @@
 <template lang="html">
   <form v-on:submit.prevent>
-    <input
+    <input type="text" v-model="search" placeholder="Search for beer:" v-on:keyup="searchForBeer">
+    <select v-on:change="handleSelect" v-model="selectedBeer">
+      <option disabled value="">Select a beer...</option>
+      <option v-for="beer in beers" :value="beer">{{beer.name}}</option>
+    </select>
+  </form>
 </template>
 
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
-</script>
+    <script>
+    import { eventBus } from '../main.js'
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+    export default {
+      name: 'beer-filter-form',
+      data(){
+        return {
+          "search": "",
+          "selectedBeer": {},
+        }
+      },
+      props: ["beers"],
+      methods: {
+        searchForBeer(){
+          let foundBeer = this.beers.find((beer) => {
+            return beer.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+          })
+          this.selectedBeer = foundBeer
+
+          eventBus.$emit('beer-selected', this.selectedBeer)
+        },
+        handleSelect(){
+          this.search = ""
+          eventBus.$emit('beer-selected', this.selectedBeer)
+        }
+      }
+    }
+    </script>
+
+    <style lang="css" scoped>
+    form{
+      text-align: center;
+      margin: 40px 0;
+    }
+
+    select, input[type="text"]{
+      font-size: 18px;
+    }
+
+    select {
+      margin-left: 20px;
+    }
+    </style>
